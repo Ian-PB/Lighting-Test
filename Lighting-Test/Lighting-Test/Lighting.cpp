@@ -42,7 +42,7 @@ void Lighting::moveLines(sf::VertexArray t_obstical, sf::Vector2f t_sourcePos)
 	// Set the color
 	for (int i = 0; i < lines.getVertexCount(); i++)
 	{
-		lines[i].color = sf::Color::White;
+		lines[i].color = sf::Color::Black;
 	}
 
 	// Angles

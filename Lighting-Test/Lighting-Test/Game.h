@@ -40,14 +40,16 @@ private:
 	void setupObjects();
 	
 	// Obsticals
-	Obstical obstical;
+	Obstical obsticals[MAX_OBSTICALS];
 
 	// Player
 	Player player;
-	Lighting playerLight;
+	Lighting playerLights[MAX_OBSTICALS];
 
 	bool placing = true;
 	int currentPoint = 0;
+	int currentObject = 0;
+	bool nextObject = false;
 
 	sf::Vector2f mousePos;
 

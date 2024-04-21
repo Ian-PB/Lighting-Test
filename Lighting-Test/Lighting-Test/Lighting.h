@@ -57,6 +57,6 @@ private:
 	sf::VertexArray shadow;
 	const sf::Color shadowColor = { 0, 0, 0, 150 };
 
-	float extendDistance = 1200;
+	float extendDistance = 10000;
 };
 

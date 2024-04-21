@@ -107,11 +107,20 @@ void Game::processMouseDown(sf::Event t_event)
 {
 	if (placing)
 	{
-		obstical.setup(MAX_OBSTICAL_POINTS, mousePos, placing, currentPoint);
+		nextObject = obsticals[currentObject].make(mousePos, currentPoint);
 
-		if (currentPoint >= MAX_OBSTICAL_POINTS)
+		if (nextObject)
 		{
-			placing = false;
+			currentPoint = 0;
+			currentObject++;
+			if (currentObject >= MAX_OBSTICALS)
+			{
+				placing = false;
+			}
+		}
+		else
+		{
+			std::cout << currentObject << "\n";
 		}
 	}
 }
@@ -142,13 +151,13 @@ void Game::update(sf::Time t_deltaTime)
 	// Lighting
 	if (!placing)
 	{
-		for (int i = 0; i < obstical.getBody().getVertexCount(); i++)
+		for (int i = 0; i < MAX_OBSTICALS; i++)
 		{
-			playerLight.moveLines(obstical.getBody(), player.getBody().getPosition());
-		}
+			playerLights[i].moveLines(obsticals[i].getBody(), player.getBody().getPosition());
 
-		playerLight.getExtendedPoints();
-		playerLight.makeShadow();
+			playerLights[i].getExtendedPoints();
+			playerLights[i].makeShadow();
+		}
 	}
 }
 
@@ -159,16 +168,24 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 
-	m_window.draw(playerLight.getShadow());
 
-	m_window.draw(obstical.getBody());
+	for (int i = 0; i < MAX_OBSTICALS; i++)
+	{
+		// Shadows
+		m_window.draw(playerLights[i].getShadow());
+
+		// Obsticals
+		m_window.draw(obsticals[i].getBody());
+
+		// Lines
+		m_window.draw(playerLights[i].getLines());
+		//m_window.draw(playerLight.getAxis());
+		//playerLight.drawOuterLines(m_window);
+		//playerLight.drawExtended(m_window);
+	}
+	
 	m_window.draw(player.getBody());
 
-	// Light
-	//m_window.draw(playerLight.getLines());
-	//m_window.draw(playerLight.getAxis());
-	//playerLight.drawOuterLines(m_window);
-	//playerLight.drawExtended(m_window);
 
 	m_window.display();
 }

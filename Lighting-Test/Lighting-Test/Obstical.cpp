@@ -5,20 +5,27 @@ Obstical::Obstical()
 	body.setPrimitiveType(sf::TriangleFan);
 }
 
-void Obstical::setup(int t_pointsAmount, sf::Vector2f t_mousePos, bool& t_placing, int& t_currentPoint)
+bool Obstical::make(sf::Vector2f t_mousePos, int& t_currentPoint)
 {
+	sf::Vertex point;
 	// Color
-	tempPoint[t_currentPoint].color = sf::Color::Red;
+	point.color = sf::Color::Red;
 
 	// Get Point
-	placePoint(t_mousePos, tempPoint[t_currentPoint]);
-	// Set point
-	tempPoint[t_currentPoint].position = { t_mousePos.x, t_mousePos.y };
-	body.append(tempPoint[t_currentPoint]);
+	placePoint(t_mousePos, point);
 
-	if (t_currentPoint <= body.getVertexCount())
+	// Set point
+	body.append(point);
+
+	if (t_currentPoint < MAX_OBSTICAL_POINTS)
 	{
 		t_currentPoint++;
+
+		return false;
+	}
+	else
+	{
+		return true;
 	}
 }
 
