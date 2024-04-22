@@ -117,10 +117,10 @@ void Game::processMouseDown(sf::Event t_event)
 			{
 				placing = false;
 			}
-		}
-		else
-		{
-			std::cout << currentObject << "\n";
+			else
+			{
+				std::cout << "NEXT OBJECT \n";
+			}
 		}
 	}
 }
